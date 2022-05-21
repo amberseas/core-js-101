@@ -111,7 +111,7 @@ function angleBetweenClockHands(date) {
     hours -= 12;
   }
   const minutes = new Date(date).getMinutes();
-  const angleHours = 30 * hours;
+  const angleHours = 30 * hours + 0.5 * minutes;
   const angleMinutes = 6 * minutes;
   let angle;
   if (angleHours > angleMinutes) {
