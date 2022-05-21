@@ -299,8 +299,23 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const [givenCheckDigit, ...payload] = ccn.toString().split('').reverse();
+  payload.reverse();
+  // Moving left, double the value of every second digit (including the rightmost digit).
+  for (let i = payload.length - 1; i >= 0; i -= 2) {
+    payload[i] *= 2;
+  }
+  // Sum the digits of the resulting value in each position to single digit.
+  for (let i = payload.length - 1; i >= 0; i -= 2) {
+    if (payload[i] > 9) {
+      payload[i] = payload[i].toString().split('').reduce((sum, num) => sum + parseInt(num, 10), 0);
+    }
+  }
+  const sumOfAllDigits = payload.reduce((sum, num) => sum + parseInt(num, 10), 0);
+  let calculatedCheckDigit = (sumOfAllDigits % 10);
+  if (calculatedCheckDigit !== 0) calculatedCheckDigit = 10 - calculatedCheckDigit;
+  return calculatedCheckDigit === parseInt(givenCheckDigit, 10);
 }
 
 /**
@@ -344,8 +359,28 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (str.length % 2 === 1) {
+    return false;
+  }
+
+  const map = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+    '<': '>',
+  };
+  const closing = Object.values(map);
+  const stack = [];
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (map[str[i]]) {
+      stack.push(str[i]);
+    } else if (closing.includes(str[i]) && str[i] !== map[stack.pop()]) {
+      return false;
+    }
+  }
+  return !stack.length;
 }
 
 
@@ -369,8 +404,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
