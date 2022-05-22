@@ -421,8 +421,15 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let a = pathes[0].split('/');
+  let res;
+  for (let i = 1; i < pathes.length; i += 1) {
+    res = a.filter((item) => pathes[i].split('/').includes(item));
+    a = res;
+    res = '';
+  }
+  return a.length === 0 ? '' : a.join('/').concat('/');
 }
 
 
@@ -444,8 +451,19 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < m2[0].length; j += 1) {
+      let sum = 0;
+      for (let k = 0; k < m1[0].length; k += 1) {
+        sum += m1[i][k] * m2[k][j];
+      }
+      result[i][j] = sum;
+    }
+  }
+  return result;
 }
 
 
@@ -479,8 +497,25 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const x = position;
+  if (x[0][0] === 'X' && x[0][1] === 'X' && x[0][2] === 'X') return 'X';
+  if (x[0][0] === '0' && x[0][1] === '0' && x[0][2] === '0') return '0';
+  if (x[1][0] === 'X' && x[1][1] === 'X' && x[1][2] === 'X') return 'X';
+  if (x[1][0] === '0' && x[1][1] === '0' && x[1][2] === '0') return '0';
+  if (x[2][0] === 'X' && x[2][1] === 'X' && x[2][2] === 'X') return 'X';
+  if (x[2][0] === '0' && x[2][1] === '0' && x[2][2] === '0') return '0';
+  if (x[0][0] === 'X' && x[1][0] === 'X' && x[2][0] === 'X') return 'X';
+  if (x[0][0] === '0' && x[1][0] === '0' && x[2][0] === '0') return '0';
+  if (x[0][1] === 'X' && x[1][1] === 'X' && x[2][1] === 'X') return 'X';
+  if (x[0][1] === '0' && x[1][1] === '0' && x[2][1] === '0') return '0';
+  if (x[0][2] === 'X' && x[1][2] === 'X' && x[2][2] === 'X') return 'X';
+  if (x[0][2] === '0' && x[1][2] === '0' && x[2][2] === '0') return '0';
+  if (x[0][0] === 'X' && x[1][1] === 'X' && x[2][2] === 'X') return 'X';
+  if (x[0][0] === '0' && x[1][1] === '0' && x[2][2] === '0') return '0';
+  if (x[0][2] === 'X' && x[1][1] === 'X' && x[2][0] === 'X') return 'X';
+  if (x[0][2] === '0' && x[1][1] === '0' && x[2][0] === '0') return '0';
+  return undefined;
 }
 
 
