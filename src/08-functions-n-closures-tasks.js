@@ -141,7 +141,14 @@ function retry(/* func, attempts */) {
 function logger(/* func, logFunc */) {
   throw new Error('Not implemented');
 }
-
+// return function x(...args) {
+//   logger.history = logger.history || {};
+//   logger.history = args;
+//   logFunc(`${func.name}(${logger.history}) starts`);
+//   logFunc(`${func.name}(${logger.history}) ends`);
+//   logger.history = [];
+//   return func();
+// };
 
 /**
  * Return the function with partial applied arguments
